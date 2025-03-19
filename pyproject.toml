@@ -5,17 +5,13 @@ description = "A bridge between public-inbox and GitHub/GitLab"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "django>=5.1.7",
-    "django-debug-toolbar>=5.0.1",
-    "django-dramatiq>=0.13.0",
-    "django-dramatiq-email>=1.4.3",
-    "django-environ>=0.12.0",
     "dramatiq[redis,watch]>=1.17.1",
-    "dramatiq-crontab[redis,sentry]>=1.0.8",
-    "feedparser>=6.0.11",
-    "gunicorn>=23.0.0",
-    "httpx>=0.28.1",
     "ruff>=0.11.0",
     "sentry-sdk>=2.23.1",
-    "whitenoise>=6.9.0",
+    "sqlmodel>=0.0.24",
+    "pygithub>=2.6.1",
+    "fastapi[standard]>=0.115.12",
+    "redis>=5.2.1",
+    "redmail>=0.6.0",
+    "apscheduler>=3.11.0",
 ]

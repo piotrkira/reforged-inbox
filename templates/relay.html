@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block nav %}
+    /
+    <li>
+        <a href="/relay/{{ relay.name }}">{{ relay.name }}</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <h4>{{ relay.name }}</h4>
+    <section>
+        Last polled: {{ relay.last_poll | timesince }} <i>(<small>{{ relay.last_poll }}</small>)</i>
+        <br>
+        Patch series <i>(<small>total {{ relay.patch_series | length }}</small>)</i>:
+        <br>
+    </section>
+    <ul>
+        {% for patch in relay.patch_series %}
+            <li>
+                <a href="/relay/{{ relay.name }}/patch-series/{{ patch.id }}">[PATCH v{{ patch.patch_series_revisions[-1].version }}] {{ patch.title }}</a>
+                {% if patch.patch_series_revisions[-1].synced %}
+                    ✅
+                {% else %}
+                    ⚠️
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

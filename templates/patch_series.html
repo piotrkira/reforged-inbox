@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block nav %}
+    /
+    <li>
+        <a href="/relay/{{ relay.name }}">{{ relay.name }}</a>
+    </li>
+    /
+    <li>
+        <a href="/relay/{{ relay.name }}/patch-series/{{ series.id }}">{{ series.title }}</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <h4>{{ series.title }}</h4>
+    <section>
+        Author: <strong>{{ series.author_email }}</strong>
+        <br>
+        {% if series.merge_request_url %}Merge request: <a href="{{ series.merge_request_url }}">link</a>{% endif %}
+    </section>
+    <br>
+    {% for revision in series.patch_series_revisions %}
+        <article>
+            <header>
+                Revision {{ revision.version }}
+            </header>
+            Msg ID: <a href="{{ mailing_list_url }}/{{ revision.msg_id }}">{{ revision.msg_id }}</a>
+            <br>
+            Processed:
+            {% if revision.processed %}
+                {{ revision.processed | timesince }}
+            {% else %}
+                not yet
+            {% endif %}
+            <br>
+            Synced:
+            {% if revision.synced %}
+                ✅
+            {% else %}
+                ⚠️
+                <br>
+                Error:
+                <br>
+                <code>
+                    {{ revision.error }}
+                </code>
+            {% endif %}
+            <br>
+        </article>
+    {% endfor %}
+{% endblock %}

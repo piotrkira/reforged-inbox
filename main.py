@@ -3,6 +3,7 @@ import logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 import app.actors
 import app.routers
@@ -28,7 +29,10 @@ def main():
 
 
 fast_api_app = FastAPI()
+fast_api_app.include_router(app.routers.web_router)
 fast_api_app.include_router(app.routers.api_router)
+fast_api_app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 if __name__ == "__main__":
     logger.info("Starting the application")

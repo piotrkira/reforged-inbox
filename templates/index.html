@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for relay in relays %}
+        <h4>
+            <a href="/relay/{{ relay.name }}">{{ relay.name }}</a>
+        </h4>
+        <ul>
+            {% for patch in relay.patch_series[0:10] %}
+                <li>
+                  <a href="/relay/{{ relay.name }}/patch-series/{{ patch.id }}">[PATCH v{{ patch.patch_series_revisions[-1].version }}] {{ patch.title }}</a> {% if patch.patch_series_revisions[-1].synced %}✅{% else %}⚠️{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <small><i>Last polled: {{ relay.last_poll | timesince }} ({{ relay.last_poll }})</i></small>
+        <hr>
+    {% endfor %}
+{% endblock %}

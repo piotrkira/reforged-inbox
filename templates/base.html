@@ -1,0 +1,26 @@
+<html lang="en">
+    <head>
+        <title>Reforged Inbox</title>
+        <link rel="stylesheet" href="/static/pico.pink.min.css">
+    </head>
+    <body>
+        <header class="container">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">Index</a>
+                    </li>
+                    {% block nav %}{% endblock %}
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="container">
+            <hr>
+            <i><a href="https://github.com/DragoonAethis/reforged-inbox/"
+   class="secondary">Source code</a></i>
+        </footer>
+    </body>
+</html>

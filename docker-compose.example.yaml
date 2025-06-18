@@ -1,0 +1,51 @@
+services:
+  scheduler:
+    image: reforged-inbox:latest
+    command: uv run python main.py
+    restart: unless-stopped
+    environment:
+      REDIS_HOST: valkey
+      DB_CONNECTION_URL: sqlite:////data/reforged.db
+    depends_on:
+      - valkey
+    links:
+      - "valkey:valkey"
+    volumes:
+      - ./repos:/repos:z
+      - ./data:/data:z
+      - ./reforged.toml:/app/reforged.toml:z
+  workers:
+    image: reforged-inbox:latest
+    command: uv run dramatiq app.actors
+    restart: unless-stopped
+    environment:
+      REDIS_HOST: valkey
+      DB_CONNECTION_URL: sqlite:////data/reforged.db
+    depends_on:
+      - valkey
+    links:
+      - "valkey:valkey"
+    volumes:
+      - ./repos:/repos:z
+      - ./reforged.toml:/app/reforged.toml:z
+      - ./data:/data:z
+  web:
+    image: reforged-inbox:latest
+    command: uv run fastapi run main.py
+    ports:
+      - "8000:8000"
+    depends_on:
+      - valkey
+    environment:
+      DB_CONNECTION_URL: sqlite:////data/reforged.db
+      REDIS_HOST: valkey
+    volumes:
+      - ./reforged.toml:/app/reforged.toml:z
+      - ./data:/data:z
+  valkey:
+    image: valkey/valkey
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli ping | grep PONG"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

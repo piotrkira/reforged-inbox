@@ -1,11 +1,16 @@
-# reforged-inbox
+# Reforged Inbox ⚒️🔥📬
 
-A mighty public-inbox <-> GitHub/GitLab bridge will be there, one day.
+Reforged Inbox is a mighty public-inbox <-> GitHub/GitLab bridge.
 
+## ⭐ Features
 
-## Deployment
+* Syncing patches from public-inbox to GitHub/GitLab
+* Web UI for viewing status of patches
+* Error notifications via email
 
-### Docker compose
+## ⚓ How to Deploy
+
+### 🐋 Docker Compose
 
 1. Create a directory for the project and navigate into it:
 
@@ -23,3 +28,7 @@ A mighty public-inbox <-> GitHub/GitLab bridge will be there, one day.
    ```bash
     docker-compose up -d
     ```
+
+## ⚙️ Configuration
+
+Take a look at `reforged.example.toml` file for example configuration.

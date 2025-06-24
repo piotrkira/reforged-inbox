@@ -1,0 +1,19 @@
+[forge.name_of_your_forge]    # forge configuration
+forge_type = "github"         # available options: github, gitlab
+username = "username"         # username of forge account
+token = "api_token"           # api token to forge
+
+[relay.custom_name]           # custom relay configuration
+forge = "name_of_your_forge"  # name of the forge this relay is for
+mailing_list = "intel-xe"     # mailing list name to sync patches from
+repo_url = "https://github.com/owner/repo.git"  # URL of the repository to sync patches to
+public_inbox_url = "https://lore.kernel.org"    # URL of the public inbox for the mailing list
+base_branch = "main"          # base branch to sync patches to
+pooling_interval = 10         # pooling interval in minutes
+
+[email]
+host = "smtpauth.mail.example"  # SMTP server for sending emails
+username = "username"           # SMTP username
+password = "password"           # SMTP password
+email = "user@mail.example"     # email address to send from
+
